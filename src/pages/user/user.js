@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { CreateUser } from "./createuser";
+import { Link } from "react-router-dom";
+
 
 
 export const Users=({data, setData})=>{
@@ -8,32 +9,33 @@ export const Users=({data, setData})=>{
         navigate(`/detail_user/${id}`)
     }
     return(
-      <div className="head">
-      
-           <CreateUser data={data} setData={setData} />
-        <div className="header"> 
-     
-      <ul className="responsive-table">
-    <li className="table-header">
-      <div className="col col-1"> Id</div>
-      <div className="col col-2"> user NAME</div>
-      <div className="col col-3">EMAIL</div>
-      <div className="col col-4">GENDER</div>
-      <div className="col col-5">STATUS</div>
 
-    </li>
+      <div className="content">
+        
+        <Link to={"/create_user"}><button>Create New Users</button>
+        </Link>
+      
+      
+           
+      
+     
+      <ul className="team">
+  
         {data.map((i, key) => {
           return (
-            <li key={key} className="table-row" onClick={()=>{handleDetail(i.id)}}>
-              <li className="col-1">{i?.id}</li>
-              <li className="col-2">{i?.name}</li>
-              <li className="col-3">{i?.email}</li>
-              <li className="col-4">{i?.gender}</li>
-              <li className="col-5">{i?.status}</li>
+            <li key={key} className="member co-funder" onClick={()=>{handleDetail(i.id)}}>
+            	<div class="thumb"> <p>ID<br/>{i?.id} </p></div>
+			<div class="description">
+				<h3>{i?.name}</h3>
+				<span className="span">EMAIL</span><span>{i?.email}</span><br/>
+				<span className="span">GENDER</span><span> {i?.gender}</span><br/>
+				<span className="span">STATUS</span><span> {i?.status}</span>
+		
+			</div>
             </li>
           )
         })}
       </ul>
-    </div></div>
+    </div>
   );
 }

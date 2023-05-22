@@ -1,9 +1,11 @@
 import { useParams } from "react-router";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export const DetailUser=({data,setData})=>{
     const [show,setShow]=useState(null)
 const [comments, setCom]=useState();
+const navigate = useNavigate();
     const params=useParams();
     const hadleCom= (e)=>{
         setCom(e.target.value)
@@ -16,12 +18,20 @@ const hadleAdd=()=>{
 comments:''
           
         }])
-    
+        setShow(null)
     }
 
+    
     const detailUser=data?.find((i) => i.id=== +params.id)
+
+    const goBack = () => {
+		navigate(-1);
+    }
     return(
+
+        
         <div className="detail"> 
+        <button onClick={goBack}>Go back</button>
              {  <li  className="table">
               <li className="id">{detailUser?.id}</li>
               <li className="col-2">{detailUser?.name}</li>
@@ -31,6 +41,7 @@ comments:''
               <li>      <p>{comments}</p></li>
          <button onClick={setShow}> Add Comments</button>
             </li>
+            
 }
 {
         show &&
